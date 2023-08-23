@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/joho/godotenv"
 )
@@ -15,5 +16,8 @@ func main() {
 		log.Println("Error: failed to load env, please make sure you create valid .env file", err)
 	}
 
-	// openWeatherApiKey := os.Getenv("OPEN_WEATHER_API_KEY")
+	_, isPresent := os.LookupEnv("OPEN_WEATHER_API_KEY")
+	if !isPresent {
+		log.Fatalln("Cannot find OPEN_WEATHER_API_KEY variable in .env file, please make sure you have set the valid api key")
+	}
 }
